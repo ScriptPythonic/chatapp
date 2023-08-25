@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block style%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    /* Center the input box */
+    .center-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+</style>
+{% endblock %}
+
+{% block content%}
+</head>
+<body>
+    <div class="center-box">
+        <form method="POST"  class="col-md-4">
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="number" class="form-control" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Sign In</button><br>
+            <a href="/signup"> Create A New Account </a>
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock %}
+

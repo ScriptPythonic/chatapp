@@ -1,0 +1,5 @@
+container {
+    background-image: url("{{ url_for('static', filename='image/chat.gif') }}");
+    background-size: cover; 
+    min-height: 100vh; 
+}

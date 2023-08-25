@@ -1,0 +1,46 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+.container{
+    padding-top: 10px;
+}
+ .chat-box {
+            display: flex;
+           align-items: center;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+
+          border-bottom: 1px solid #ddd;
+        }
+
+        .user-dp {
+        width: 50px;
+         height: 50px;
+         border-radius: 50%;
+        object-fit: cover;
+       margin-right: 10px;
+        }
+
+        .message-preview {
+            flex: 1;
+        }
+
+        .sender-name {
+            font-weight: bold;
+        }
+
+        .message-content {
+            color: #777;
+        }
+
+        #search-results {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px; /* Add some spacing between search results */
+        }
+  
+
+

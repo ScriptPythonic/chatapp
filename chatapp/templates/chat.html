@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chat.css') }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock %}
+{% block content%}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <form class="form-inline" id="search-form">
+                <div class="form-group mx-sm-3 mb-2 w-100">
+                    <input type="text" class="form-control w-100" id="search-input" placeholder="Get In Touch With Your Friends">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-3" id="search-results">
+        <!-- Search results will be displayed here -->
+    </div>
+    <div class="chat-box mt-4">
+        <!-- ... (previous chat box content) ... -->
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="chat-box-grid">
+        <!-- Chat Box 1 -->
+        <div class="chat-box">
+            <img src="{{ url_for('static', filename='image/adminimage.jpeg') }}" alt="User DP" class="user-dp">
+            <div class="message-preview">
+                <a href="/chatUser"><div class="sender-name">Admin Message</div></a>
+                <div class="message-content">Welcome to chatapp ....</div>
+            </div>
+        </div>
+
+        <!-- Chat Box 2 -->
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will be displayed here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function getAndDisplayMessages(name) {
+        fetch(`/get_messages/${name}`)
+            .then(response => response.json())
+            .then(data => {
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML = '';
+    
+                data.messages.forEach(message => {
+                    chatBox.innerHTML += `
+                        <div class="chat-message">
+                            <div class="user-dp">
+                                <img src="{{ url_for('static', filename='image/defaultimage.png') }}" alt="User DP" class="user-dp-img">
+                            </div>
+                            <div class="message-content">
+                                <div class="sender-name">${message.sender.name}</div>
+                                ${message.content}
+                            </div>
+                        </div>`;
+                });
+            });
+    }
+    
+    const name = "{{ name }}";
+    getAndDisplayMessages(name);
+
+    // Add an event listener for the search form submission
+    const form = document.querySelector('form.form-inline');
+    const input = document.querySelector('input.form-control');
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const searchTerm = input.value.trim();
+
+        fetch(`/search_users?term=${searchTerm}`)
+            .then(response => response.json())
+            .then(data => {
+                const searchResultsContainer = document.getElementById('search-results');
+                searchResultsContainer.innerHTML = '';
+
+                const nameCounts = {};
+
+                data.users.forEach(user => {
+                    if (!nameCounts[user.name]) {
+                        nameCounts[user.name] = 1;
+                    } else {
+                        nameCounts[user.name]++;
+                    }
+                });
+
+                data.users.forEach(user => {
+                    if (nameCounts[user.name] > 1) {
+                        // Add to the aligned list
+                        searchResultsContainer.innerHTML += `
+                            <div class="aligned-list"><a href="/chat_with_user/${user.name}">${user.name}</a></div>`;
+                    } else {
+                        // Add to the regular list
+                        searchResultsContainer.innerHTML += `
+                            <div><a href="/chat_with_user/${user.name}">${user.name}</a></div>`;
+                    }
+                });
+            });
+    });
+</script>
+
+{% endblock %}

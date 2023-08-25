@@ -1,0 +1,5 @@
+.profile-picture{
+    border-radius: 50%;
+    object-fit: cover; /* Preserve aspect ratio while covering the content area */
+}
+

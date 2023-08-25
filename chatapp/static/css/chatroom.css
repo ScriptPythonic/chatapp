@@ -1,0 +1,75 @@
+/* Additional CSS for WhatsApp-style chat interface */
+.container {
+    margin-top: 20px;
+}
+
+.chat-box-container {
+    background-color: #f8f9fa;
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    padding: 15px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.chat-message {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.user-dp {
+    margin-right: 10px;
+}
+
+.user-dp-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.message-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.sender-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#message-form {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+#message-input {
+    flex-grow: 1;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    margin-right: 10px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#message-input:focus {
+    outline: none;
+}
+
+#message-form button {
+    background-color: #128c7e;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+#message-form button:hover {
+    background-color: #0e7566;
+}

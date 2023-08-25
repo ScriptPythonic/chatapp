@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4"> Chat {{ user.name }}</h2>
+
+    <div class="chat-box-container">
+        <div class="chat-box" id="chat-box">
+            {% for message in messages %}
+            <div class="chat-message">
+                <div class="user-dp">
+                    <img src="{{ url_for('static', filename='image/defaultimage.png') }}" alt="User DP" class="user-dp-img">
+                </div>
+                <div class="message-content">
+                    <div class="sender-name">{{ message.user.name }}</div>
+                    {{ message.content }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <form id="message-form" action="/chat_with_user/{{ name }}" method="post" class="d-flex">
+        <input type="text" id="message-input" name="content" placeholder="Type your message..." class="flex-grow-1">
+        <button type="submit" class="ml-2">Send</button>
+    </form>
+</div>
+
+<script>
+    const userName = "{{ user.name }}";  // Pass the user's name to JavaScript
+    
+    function getAndDisplayMessages() {
+        fetch(`/get_messages/${userName}`)  // Use the userName variable
+            .then(response => response.json())
+            .then(data => {
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML = '';
+
+                data.messages.forEach(message => {
+                    chatBox.innerHTML += `
+                        <div class="chat-message">
+                            <div class="user-dp">
+                                <img src="{{ url_for('static', filename='image/defaultimage.png') }}" alt="User DP" class="user-dp-img">
+                            </div>
+                            <div class="message-content">
+                                <div class="sender-name">${message.user.name}</div>
+                                ${message.content}
+                            </div>
+                        </div>`;
+                });
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getAndDisplayMessages();
+    });
+</script>
+{% endblock %}
